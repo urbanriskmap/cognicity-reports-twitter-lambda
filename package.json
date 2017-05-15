@@ -1,0 +1,22 @@
+{
+  "name": "cognicity-reports-twitter-lambda",
+  "version": "1.0.0",
+  "description": "A serverless Twitter lambda which will send report notifications",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urbanriskmap/cognicity-reports-twitter-lambda.git"
+  },
+  "author": "Maanasa Priyaa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/urbanriskmap/cognicity-reports-telegram-lambda/issues"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "twitter": "^1.7.0"
+  }
+}
