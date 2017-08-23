@@ -1,5 +1,7 @@
 # cognicity-reports-twitter-lambda
-This module deploys serverless lambda that sends a confirmation message and report link to the user on Twitter
+This module deploys serverless lambda that sends a confirmation message and report link to the user on Twitter.
+
+Currently deployed for PetaBencana.id in Indonesia.
 
 ### Install
 `npm install`
@@ -15,19 +17,20 @@ This module deploys serverless lambda that sends a confirmation message and repo
 ### Configuration
 Save a copy of sample.env as .env in local directory with appropriate credentials
 
-* `VALIDATIONTOKEN`: Give the same token on Facebook dev portal to validate webhooks
-* `APPSECRET`: AppSecret key got on creating facebook app
-* `PAGEACCESSTOKEN`: Access token for the page to which the app has subscribed
-* `DEFAULT_LANG`: Current default language is English. You can add more languages here and parameterize replies for each language.
-* `CARD_PATH`: Front end's cards URL
-* `MAPSERVER`: Front end's map URL
-* `X_API_KEY`: API Key needed to make calls to the deployed server (Set it to "" during local testing)
-* `PG_CON`: Connection string for the Postgres database
-* `SERVER`: Cognicity server URL to fetch unique cardIds
-* `BOTNAME`: Bot/Platform name to be sent in the Greeting text.
+* `AWS_REGION`: AWS region to deploy Lambda to
+* `AWS_STAGE`: AWS stage to deploy Lambda to
+* `TWITTER_CONSUMER_KEY`: From twitter application
+* `TWITTER_CONSUMER_SECRET`: From twitter application
+* `TWITTER_ACCESS_TOKEN_KEY`: From twitter application
+* `TWITTER_ACCESS_TOKEN_SECRET`: From twitter application credentials
+* `DEFAULT_LANG`: Default language to contact user
+* `FRONT_END_CARD_PATH`: Location of card content
+* `FRONT_END_MAP_PATH`: Location of map
+* `SERVER_PATH`: Location of data server
+* `SERVER_PORT`: Data server port
+* `AREA=`: Area tag (metadata for processes)
 
 #### Misc Notes
 - AWS credentials are stored in bash_profile
-- Grasp "username" is userID/senderID from source networks to allow replies in conversation
 - Errors are logged to console, but not returned to user currently
 - If you want to test with your local Cognicity server instance, set up secure tunnels to localhost using ngrok and use that URL in the .env file. Install 'npm install -g ngrok'. After initializing the server, run 'ngrok http <PORT_NUMBER'. Use the https URL generated and set it in the 'SERVER' section of the env file. This allows the Lambda to interact with the server to fetch card OTL.

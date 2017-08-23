@@ -7,13 +7,13 @@ provider:
   name: aws
   runtime: nodejs6.10
   stage: dev
-  region: ap-south-1
+  region: ap-southeast-1
   stackTags:
-    area: ${file(./env.yml):area}
+    area: Indonesia
 
 # Add one function for each Lambda
 functions:
   reply: # Lambda that gets triggered when a message is published to the SNS topic Facebook
-    handler: handler.reply
+    handler: index.main
     events:
       - sns: Twitter
