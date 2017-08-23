@@ -12,12 +12,30 @@ var twitterClient = new Twitter({
 
 // GRASP operating regions
 const instance_regions = {
-  chn: 'chennai'
-}
+  chn: 'chennai',
+  jbd: 'jakarta',
+  sby: 'surabaya',
+  bdg: 'bandung'
+};
 
 // Confirmation message to user
 const confirmations = {
-  'en': 'Hi! Thanks for your report. I\'ve put it on the map.'
+  'en': "Hi! Thanks for your report. I've put it on the map.",
+  'id': 'Hi! Terima kasih atas laporan Anda. Aku sudah menaruhnya di peta.'
+};
+
+/*
+ * Makes POST call to post a Twitter status update @ the user's handle
+ */
+function sendTweet(messageText, userName) {
+  var message = '@' + userName + ' ' + messageText;
+  twitterClient.post('statuses/update', {status: message})
+    .then(function (tweet) {
+      console.log('Tweet sent: ' + tweet + 'to the user: ' + userName);
+    })
+    .catch(function (error) {
+      console.error('Sending report link tweet failed', error);
+    });
 }
 
 module.exports.reply = (event, context, callback) => {
@@ -26,15 +44,8 @@ module.exports.reply = (event, context, callback) => {
   console.log('Message received from SNS topic: ' + message);
 
   //Construct the confirmation message to be sent to the user
-  var messageText = '@' + message.username + ' ' + confirmations[message.language];
+  var messageText = confirmations[message.language];
   messageText += '\n' + process.env.MAPSERVER + instance_regions[message.implementation_area] + '/' + message.report_id;
 
-  //Make a POST call to send a tweet to the user
-  twitterClient.post('statuses/update', {status: messageText})
-    .then(function (tweet) {
-      console.log('Tweet sent: ' + tweet + 'to the user: ' + message.username);
-    })
-    .catch(function (error) {
-      console.error('Sending report link tweet failed', error);
-    })
+  sendTweet(messageText, message.username);
 };
