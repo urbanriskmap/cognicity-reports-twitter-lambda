@@ -19,9 +19,11 @@ const instance_regions = {
 };
 
 // Confirmation message to user
+// Twitter sometimes uses `in` to specify indonesia.
 const confirmations = {
   'en': "Hi! Thanks for your report. I've put it on the map.",
-  'id': 'Hi! Terima kasih atas laporan Anda. Aku sudah menaruhnya di peta.'
+  'id': 'Hi! Terima kasih atas laporan Anda. Aku sudah menaruhnya di peta.',
+  'in': 'Hi! Terima kasih atas laporan Anda. Aku sudah menaruhnya di peta.'
 };
 
 /*
@@ -44,7 +46,10 @@ module.exports.main = (event, context, callback) => {
   console.log('Message received from SNS topic: ' + JSON.stringify(message));
 
   //Construct the confirmation message to be sent to the user
-  var messageText = confirmations[message.language];
+  var messageText = confirmations['id'];
+  if (message.language in confirmations){
+    messageText = confirmations[message.language];
+  }
   messageText += '\n' + process.env.FRONT_END_MAP_PATH + '/' + instance_regions[message.implementation_area] + '/' + message.report_id;
 
   sendTweet(messageText, message.username);
