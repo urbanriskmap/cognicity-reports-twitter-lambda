@@ -31,7 +31,7 @@ function sendTweet(messageText, userName) {
   var message = '@' + userName + ' ' + messageText;
   twitterClient.post('statuses/update', {status: message})
     .then(function (tweet) {
-      console.log('Tweet sent: ' + tweet + 'to the user: ' + userName);
+      console.log('Tweet sent: ' + JSON.stringify(tweet) + 'to the user: ' + userName);
     })
     .catch(function (error) {
       console.error('Sending report link tweet failed', error);
@@ -41,7 +41,7 @@ function sendTweet(messageText, userName) {
 module.exports.main = (event, context, callback) => {
   //This module listens in to SNS Twitter topic and reads the message published
   var message = JSON.parse(event.Records[0].Sns.Message);
-  console.log('Message received from SNS topic: ' + message);
+  console.log('Message received from SNS topic: ' + JSON.stringify(message));
 
   //Construct the confirmation message to be sent to the user
   var messageText = confirmations[message.language];
