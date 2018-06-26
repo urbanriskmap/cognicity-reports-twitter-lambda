@@ -1,3 +1,6 @@
+## DEPRECATED
+This module is superseeded by the [cognicity-reports-twitter-dm](https://github.com/urbanriskmap/cognicity-reports-twitter-dm) module and intergated API for notifications.
+
 # cognicity-reports-twitter-lambda
 This module deploys serverless lambda that sends a confirmation message and report link to the user on Twitter.
 
